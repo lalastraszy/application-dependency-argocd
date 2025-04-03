@@ -11,7 +11,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/kostis-codefresh/application-dependency-argocd.git
+    repoURL: https://github.com/lalastraszy/application-dependency-argocd.git
     targetRevision: HEAD
     path: ./manifests/db
    
