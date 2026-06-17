@@ -1,0 +1,54 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: progressive-apps
+  namespace: argocd
+spec:
+  # RollingSync ensures apps in step 2 only begin syncing after
+  # all apps in step 1 are healthy — on every sync, not just first deploy.
+  strategy:
+    type: RollingSync
+    rollingSync:
+      steps:
+        - matchExpressions:
+            - key: deploy-stage
+              operator: In
+              values:
+                - backend
+        - matchExpressions:
+            - key: deploy-stage
+              operator: In
+              values:
+                - frontend
+  generators:
+    - list:
+        elements:
+          - appName: progressive-api
+            appPath: ./manifests/api
+            appNamespace: progressive-api
+            stage: backend
+          - appName: progressive-frontend
+            appPath: ./manifests/frontend
+            appNamespace: progressive-frontend
+            stage: frontend
+  template:
+    metadata:
+      name: '{{appName}}'
+      labels:
+        # RollingSync steps match against these labels
+        deploy-stage: '{{stage}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/lalastraszy/application-dependency-argocd.git
+        targetRevision: HEAD
+        path: '{{appPath}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{appNamespace}}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          prune: true
+          selfHeal: true

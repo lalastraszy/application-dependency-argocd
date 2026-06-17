@@ -1,4 +1,5 @@
 data:
+  applicationsetcontroller.enable.progressive.syncs: "true"
   resource.customizations.health.argoproj.io_Application: |
     hs = {}
     hs.status = "Progressing"
