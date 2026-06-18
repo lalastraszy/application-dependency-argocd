@@ -27,7 +27,7 @@ spec:
             appPath: ./manifests/api
             appNamespace: progressive-api
             stage: backend
-          - appsName: progressive-frontend
+          - appName: progressive-frontend
             appPath: ./manifests/frontend
             appNamespace: progressive-frontend
             stage: frontend
