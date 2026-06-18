@@ -13,6 +13,10 @@ spec:
       labels:
         app: trivial-go-web-app
     spec:
+      initContainers:
+      - name: startup-delay
+        image: busybox
+        command: ["sleep", "60"]
       containers:
       - name: webserver-simple
         image: docker.io/kostiscodefresh/simple-env-app:1.0

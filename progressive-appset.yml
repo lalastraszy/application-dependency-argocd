@@ -27,7 +27,7 @@ spec:
             appPath: ./manifests/api
             appNamespace: progressive-api
             stage: backend
-          - appName: progressive-frontend
+          - appsName: progressive-frontend
             appPath: ./manifests/frontend
             appNamespace: progressive-frontend
             stage: frontend
@@ -49,6 +49,3 @@ spec:
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
-        automated:
-          prune: true
-          selfHeal: true
