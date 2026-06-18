@@ -16,7 +16,7 @@ spec:
       initContainers:
       - name: startup-delay
         image: busybox
-        command: ["sleep", "60"]
+        command: ["sleep", "30"]
       containers:
       - name: webserver-simple
         image: docker.io/kostiscodefresh/simple-env-app:1.0
